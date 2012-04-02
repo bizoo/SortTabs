@@ -45,7 +45,7 @@ class SortTabs(object):
 
 
 class SortTabsByNameCommand(SortTabs, sublime_plugin.WindowCommand):
-	'''Sort Tabs by filename'''
+	'''Sort Tabs by file name'''
 	sorting_indexes = (1, 2)
 
 	def fill_list_views(self, list_views):
@@ -72,7 +72,7 @@ class SortTabsByDateCommand(SortTabsByNameCommand):
 
 	def fill_list_views(self, list_views):
 		super(SortTabsByDateCommand, self).fill_list_views(list_views)
-		# add modification date and dirty flag to each element of list_views
+		# add modifcation date and dirty flag to each element of list_views
 		for item in list_views:
 			modified = 0
 			dirty = item[0].is_dirty()
@@ -102,5 +102,7 @@ class SortTabsMenuCommand(sublime_plugin.WindowCommand):
 	@classmethod
 	def register(cls, cmd, description):
 		# add cmd to the available commands and sort them
-		cls.registered_sort_commands.append((description, cmd))
+		commands = set(cls.registered_sort_commands)
+		commands.add((description, cmd))
+		cls.registered_sort_commands = list(commands)
 		cls.registered_sort_commands.sort()
