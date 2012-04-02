@@ -68,20 +68,24 @@ class SortTabsByTypeCommand(SortTabsByNameCommand):
 
 class SortTabsByDateCommand(SortTabsByNameCommand):
 	'''Sort Tabs by modification date'''
-	sorting_indexes = (1, 3, 2)
+	sorting_indexes = (1, 3, 4, 2)
 
 	def fill_list_views(self, list_views):
 		super(SortTabsByDateCommand, self).fill_list_views(list_views)
-		# add modifcation date to each element of list_views
+		# add modification date and dirty flag to each element of list_views
 		for item in list_views:
-			filepath = item[0].file_name()
 			modified = 0
-			if filepath is not None:
-				try:
-					modified = os.path.getmtime(filepath)
-				except WindowsError:
-					pass
-			item.append(-modified)
+			dirty = item[0].is_dirty()
+			if not dirty:
+				dirty = True
+				filepath = item[0].file_name()
+				if filepath is not None:
+					try:
+						modified = os.path.getmtime(filepath)
+						dirty = False
+					except WindowsError:
+						pass
+			item.extend([not dirty, -modified])
 
 
 class SortTabsMenuCommand(sublime_plugin.WindowCommand):
