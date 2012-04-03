@@ -14,6 +14,10 @@ How it works
 
 The command is accessible via the Command Palette (Ctrl+Shift+P) under the name *Sort Tabs: Menu*.
 
+Installation
+------------
+
+Install via `Package Control <http://wbond.net/sublime_packages/package_control>`_
 
 Add your own sorting method (Advanced)
 --------------------------------------
