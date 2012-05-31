@@ -8,16 +8,31 @@ This plugin sort the tabs in Sublime Text 2 using one of these methods:
 - Sort Tabs by file type
 - Sort Tabs by modification date
 
+Optionally, you can enable an automatic sort when loading or saving a file.
 
 How it works
 ------------
 
-The command is accessible via the Command Palette (Ctrl+Shift+P) under the name *Sort Tabs: Menu*.
+The command is accessible via the Command Palette (Ctrl+Shift+P) under the name *Sort Tabs: Menu* or from the menu::
+    
+    View->Sort Tabs Menu
 
 Installation
 ------------
 
 Install via `Package Control <http://wbond.net/sublime_packages/package_control>`_
+
+Settings
+--------
+
+To configure this plugin, look at the menu::
+
+    Preferences->Package Settings->SortTabs->Settings - Default
+
+If you want to change a settings don't touch this file, but put your settings in your user folder::
+
+    Preferences->Package Settings->SortTabs->Settings - User
+
 
 Add your own sorting method (Advanced)
 --------------------------------------
