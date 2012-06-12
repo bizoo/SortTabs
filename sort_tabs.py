@@ -24,12 +24,14 @@ class SortTabs(object):
 		for group, groupviews in groupby(list_views, itemgetter(1)):
 			for index, view in enumerate(v[0] for v in groupviews):
 				self.window.set_view_index(view, group, index)
+				# remove flag for auto sorting
+				view.settings().erase('sorttabs_tosort')
 		# restore active view
 		self.window.focus_view(curr_view)
 
 	def init_file_views(self, list_views):
 		for view in self.window.views():
-			group = self.window.get_view_index(view)[0]
+			group, _ = self.window.get_view_index(view)
 			list_views.append([view, group])
 
 	def fill_list_views(self, list_views):

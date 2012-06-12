@@ -6,5 +6,5 @@
 	// 	sort_tabs_by_name
 	// 	sort_tabs_by_type
 	// 	sort_tabs_by_date
-	"sort_on_load_save_command" : ""	
+	"sort_on_load_save_command" : ""
 }
