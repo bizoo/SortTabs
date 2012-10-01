@@ -6,6 +6,7 @@ This plugin sort the tabs in Sublime Text 2 using one of these methods:
 
 - Sort Tabs by file name
 - Sort Tabs by file type
+- Sort Tabs by file path
 - Sort Tabs by modification date
 - Sort Tabs by last activation
 

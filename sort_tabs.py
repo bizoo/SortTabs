@@ -105,6 +105,17 @@ class SortTabsByNameCommand(SortTabs, sublime_plugin.WindowCommand):
 			item.append(filename.lower())
 
 
+class SortTabsByFilePathCommand(SortTabs, sublime_plugin.WindowCommand):
+	'''Sort Tabs by file path'''
+	sorting_indexes = (1, 2)
+
+	def fill_list_views(self, list_views):
+		super(SortTabsByFilePathCommand, self).fill_list_views(list_views)
+		for item in list_views:
+			dirname = os.path.dirname(item[0].file_name() if item[0].file_name() else '')
+			item.append(dirname.lower())
+
+
 class SortTabsByTypeCommand(SortTabsByNameCommand):
 	'''Sort Tabs by file type'''
 	sorting_indexes = (1, 3, 2)
