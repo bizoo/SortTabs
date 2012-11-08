@@ -33,7 +33,10 @@ class SortTabs(object):
 		SortTabsMenuCommand.register(self.name(), self.description())
 
 	def run(self, sort=True, close=False):
-		INTERNAL_SETTINGS.set('last_cmd', self.name())
+		# store the last command if sort is True
+		# so not if it's a close only call
+		if sort:
+			INTERNAL_SETTINGS.set('last_cmd', self.name())
 		# save active view to restore it latter
 		self.curr_view = self.window.active_view()
 
