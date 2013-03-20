@@ -1,8 +1,12 @@
 import sublime, sublime_plugin
 import time
-import sort_tabs
 
-settings = sublime.load_settings('SortTabs.sublime-settings')
+ST3 = int(sublime.version()) >= 3000
+
+if ST3:
+	import SortTabs.sort_tabs
+else:
+	import sort_tabs
 
 
 class AutoSortTabsListener(sublime_plugin.EventListener):
@@ -32,3 +36,12 @@ class AutoSortTabsListener(sublime_plugin.EventListener):
 				view.window().run_command(cmd)
 			return True
 		return False
+
+
+def plugin_loaded():
+	global settings
+	settings = sublime.load_settings('SortTabs.sublime-settings')
+
+
+if not ST3:
+	plugin_loaded()
