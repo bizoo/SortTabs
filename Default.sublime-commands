@@ -3,4 +3,26 @@
         "caption": "Sort Tabs: Menu",
         "command": "sort_tabs_menu"
     }
+//  Uncomment them if you don't want to run the command through a menu
+//  ,
+//  {
+//      "caption": "Sort Tabs by File Name",
+//      "command": "sort_tabs_by_name"
+//  },
+//  {
+//      "caption": "Sort Tabs by File Path",
+//      "command": "sort_tabs_by_file_path"
+//  },
+//  {
+//      "caption": "Sort Tabs by File Type",
+//      "command": "sort_tabs_by_type"
+//  },
+//  {
+//      "caption": "Sort Tabs by Modification Date",
+//      "command": "sort_tabs_by_date"
+//  },
+//  {
+//      "caption": "Sort Tabs by Last Activation",
+//      "command": "sort_tabs_by_last_activation"
+//  }
 ]
