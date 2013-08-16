@@ -32,13 +32,14 @@ class SortTabs(object):
 		# register command in the menu
 		SortTabsMenuCommand.register(self.name(), self.description())
 
-	def run(self, sort=True, close=False):
+	def run(self, sort=True, close=False, current_grp_only=False):
 		# store the last command if sort is True
 		# so not if it's a close only call
 		if sort:
 			INTERNAL_SETTINGS.set('last_cmd', self.name())
 		# save active view to restore it latter
-		self.curr_view = self.window.active_view()
+		self.current_view = self.window.active_view()
+		self.current_grp_only = current_grp_only
 
 		list_views = []
 		# init, fill and sort list_views
@@ -56,12 +57,15 @@ class SortTabs(object):
 		if message:
 			sublime.status_message(message)
 		# restore active view
-		self.window.focus_view(self.curr_view)
+		self.window.focus_view(self.current_view)
 
 	def init_file_views(self, list_views):
+		if self.current_grp_only:
+			current_grp, _ = self.window.get_view_index(self.current_view)
 		for view in self.window.views():
 			group, _ = self.window.get_view_index(view)
-			list_views.append([view, group])
+			if not self.current_grp_only or (group == current_grp):
+				list_views.append([view, group])
 
 	def fill_list_views(self, list_views):
 		pass
@@ -85,7 +89,7 @@ class SortTabs(object):
 		close = close if close else 1
 		closed = 0
 		for view in (v[0] for v in list_views[-close:]):
-			if view.id() != self.curr_view.id() and not view.is_dirty() and not view.is_scratch():
+			if view.id() != self.current_view.id() and not view.is_dirty() and not view.is_scratch():
 				self.window.focus_view(view)
 				self.window.run_command('close_file')
 				closed += 1
