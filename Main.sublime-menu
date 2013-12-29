@@ -32,6 +32,16 @@
     							"command": "open_file",
     							"args": {"file": "${packages}/User/SortTabs.sublime-settings"},
     							"caption": "Settings – User"
+    						},
+    						{"caption": "-"},
+    						{
+    							"command": "sort_tabs_install_menu",
+    							"args": {"install": true},
+    							"caption": "Install/Update Tab Context Menu"
+    						},
+    						{
+    							"command": "sort_tabs_uninstall_menu",
+    							"caption": "Uninstall Tab Context Menu"
     						}
     					]
     				}
