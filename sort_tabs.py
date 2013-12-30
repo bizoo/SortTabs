@@ -5,6 +5,16 @@ from itertools import groupby
 
 ST3 = int(sublime.version()) >= 3000
 
+GLOBAL_SETTINGS = INTERNAL_SETTINGS = None
+
+
+def settings():
+	return GLOBAL_SETTINGS
+
+
+def internal_settings():
+	return INTERNAL_SETTINGS
+
 
 class InternalSettings(object):
 	'''Wrapper for settings file that automaticaly save the file when a settings changed'''
@@ -204,7 +214,8 @@ class SortTabsRepeatLastCommand(sublime_plugin.WindowCommand):
 
 
 def plugin_loaded():
-	global INTERNAL_SETTINGS
+	global GLOBAL_SETTINGS, INTERNAL_SETTINGS
+	GLOBAL_SETTINGS = sublime.load_settings('SortTabs.sublime-settings')
 	INTERNAL_SETTINGS = InternalSettings('SortTabsInternal.sublime-settings')
 
 
