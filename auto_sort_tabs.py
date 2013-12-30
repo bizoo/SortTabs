@@ -4,7 +4,7 @@ import time
 ST3 = int(sublime.version()) >= 3000
 
 if ST3:
-	import SortTabs.sort_tabs
+	import SortTabs.sort_tabs as sort_tabs
 else:
 	import sort_tabs
 

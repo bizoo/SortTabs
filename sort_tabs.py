@@ -3,6 +3,8 @@ import os
 from operator import itemgetter
 from itertools import groupby
 
+ST3 = int(sublime.version()) >= 3000
+
 
 class InternalSettings(object):
 	'''Wrapper for settings file that automaticaly save the file when a settings changed'''
@@ -20,8 +22,6 @@ class InternalSettings(object):
 
 	def __getattr__(self, name):
 		return getattr(self.settings, name)
-
-INTERNAL_SETTINGS = InternalSettings('SortTabsInternal.sublime-settings')
 
 
 class SortTabs(object):
@@ -192,3 +192,12 @@ class SortTabsRepeatLastCommand(sublime_plugin.WindowCommand):
 		cmd = INTERNAL_SETTINGS.get('last_cmd')
 		if cmd:
 			self.window.run_command(cmd, kwargs)
+
+
+def plugin_loaded():
+	global INTERNAL_SETTINGS
+	INTERNAL_SETTINGS = InternalSettings('SortTabsInternal.sublime-settings')
+
+
+if not ST3:
+	plugin_loaded()
