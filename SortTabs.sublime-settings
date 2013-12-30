@@ -10,6 +10,8 @@
 	// 	sort_tabs_by_date
 	// 	sort_tabs_by_last_activation
 	"sort_on_load_save_command" : "",
+	// Only sort current group (pane)
+	"current_group_only" : false,
 	// Uncomment options you want to appear in the Tab Context menu
 	"tab_context_sort_menu": [
 		// {"caption": "Name", "command": "sort_tabs_by_name"},

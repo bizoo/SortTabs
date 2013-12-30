@@ -32,14 +32,17 @@ class SortTabs(object):
 		# register command in the menu
 		SortTabsMenuCommand.register(self.name(), self.description())
 
-	def run(self, sort=True, close=False, current_grp_only=False):
+	def run(self, sort=True, close=False, current_grp_only=None):
 		# store the last command if sort is True
 		# so not if it's a close only call
 		if sort:
 			INTERNAL_SETTINGS.set('last_cmd', self.name())
 		# save active view to restore it latter
 		self.current_view = self.window.active_view()
+
 		self.current_grp_only = current_grp_only
+		if current_grp_only is None:
+			self.current_grp_only = GLOBAL_SETTINGS.get('current_group_only', False)
 
 		list_views = []
 		# init, fill and sort list_views
@@ -78,9 +81,10 @@ class SortTabs(object):
 		# sort views according to list_views
 		for group, groupviews in groupby(list_views, itemgetter(1)):
 			for index, view in enumerate(v[0] for v in groupviews):
-				self.window.set_view_index(view, group, index)
 				# remove flag for auto sorting
 				view.settings().erase('sorttabs_tosort')
+				if self.window.get_view_index(view) != (group, index):
+					self.window.set_view_index(view, group, index)
 
 	def close_views(self, list_views, close):
 		if close < 0:
@@ -171,8 +175,13 @@ class SortTabsMenuCommand(sublime_plugin.WindowCommand):
 
 	def run(self, *args, **kwargs):
 		self.args, self.kwargs = args, kwargs
-		listcommands = [c[0] for c in self.registered_sort_commands]
-		self.window.show_quick_panel(listcommands, self._callback)
+		listcommands = []
+		index = 0
+		for pos, (desc, cmd) in enumerate(self.registered_sort_commands):
+			listcommands.append(desc)
+			if cmd == INTERNAL_SETTINGS.get('last_cmd'):
+				index = pos
+		self.window.show_quick_panel(listcommands, self._callback, 0, index)
 
 	def _callback(self, index):
 		if index != -1:
