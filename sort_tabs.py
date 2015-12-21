@@ -55,6 +55,7 @@ class SortTabs(object):
 			self.current_grp_only = GLOBAL_SETTINGS.get('current_group_only', False)
 
 		list_views = []
+		self.reopen_views()
 		# init, fill and sort list_views
 		self.init_file_views(list_views)
 		self.fill_list_views(list_views)
@@ -108,6 +109,12 @@ class SortTabs(object):
 				self.window.run_command('close_file')
 				closed += 1
 		return closed
+
+	def reopen_views(self):
+		active_view = self.window.active_view()
+		for view in self.window.views():
+			self.window.open_file(view.file_name())
+		self.window.open_file(active_view)
 
 	def description(self, *args):
 		# use class __doc__ for description
