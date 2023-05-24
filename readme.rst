@@ -1,8 +1,8 @@
 ============================
-Sort Tabs for Sublime Text 2
+Sort Tabs for Sublime Text
 ============================
 
-This plugin sort the tabs in Sublime Text 2 using one of these methods:
+This plugin sort the tabs in Sublime Text using one of these methods:
 
 - Sort Tabs by file name
 - Sort Tabs by file type
